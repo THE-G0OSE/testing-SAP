@@ -1,0 +1,45 @@
+{
+    "reviews": [
+       {
+        "id": 0,
+        "username": "Anton228",
+        "text": "some long text about Anton's hard life",
+        "rating": 2,
+        "categorie": "Films",
+        "date": "10.03.2025",
+        "views": 0
+       },{
+        "id": 1,
+        "username": "Miha1337",
+        "text": "some long text about Miha's hard life",
+        "rating": 1,
+        "categorie": "Cars",
+        "date": "10.03.2025",
+        "views": 0
+       },{
+        "id": 2,
+        "username": "Masha2009",
+        "text": "some long text about Masha's simple life",
+        "rating": 4,
+        "categorie": "School",
+        "date": "10.03.2025",
+        "views": 0
+       },{
+        "id": 3,
+        "username": "Pidor2006",
+        "text": "some long text about someone's hard life",
+        "rating": 3,
+        "categorie": "Work",
+        "date": "10.03.2025",
+        "views": 0
+       },{
+        "id": 4,
+        "username": "Opezdol",
+        "text": "some long text about someone's simple life",
+        "rating": 5,
+        "categorie": "Computers",
+        "date": "10.03.2025",
+        "views": 0
+       }
+    ]
+}
