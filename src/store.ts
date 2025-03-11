@@ -74,7 +74,8 @@ export const useDB = create<IDB>((set, get) => ({
         .then(data => console.log(data))
     },
     getReviewById: (id) => {
-        const result = get().reviews!.find((review) => review.id = id);
+        const result = get().reviews!.find((review) => review.id == id);
+        console.log(id,result)
         if (result) {
             return result
         } else {
