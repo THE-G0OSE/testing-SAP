@@ -21,7 +21,18 @@ interface IDB {
     deleteReview: (id: number) => void;
 }
 
-const url = 'http://192.168.1.42:3000/reviews'
+interface ITheme {
+    theme: 'light' | 'dark',
+    changeTheme: () => void,
+    mainColor: () => string,
+    secondColor: () => string,
+    accentColor: () => string,
+    secondColorAccent: () => string,
+    textColor: () => string,
+    textSecondColor: () => string,
+}
+
+const url = 'http://localhost:3000/reviews'
 
 export const useDB = create<IDB>((set, get) => ({
     reviews: [],
@@ -92,4 +103,15 @@ export const useDB = create<IDB>((set, get) => ({
         })
         .then(data => console.log(data))
     }
+}))
+
+export const useTheme = create<ITheme>((set, get) => ({
+    theme: 'dark',
+    changeTheme: () => set({theme: get().theme == 'light' ? 'dark' : 'light'}),
+    mainColor: () => get().theme == 'light' ? ' bg-[#ffffff] ' : ' bg-[#000000] ',
+    secondColor: () => get().theme == 'light' ? ' bg-[#aaaaaa] ' : ' bg-[#333333] ',
+    accentColor: () => get().theme == 'light' ? ' bg-[#999999] ' : ' bg-[#555555] ',
+    secondColorAccent: () => get().theme == 'light' ? ' bg-[#777777] ' : ' bg-[#777777] ',
+    textColor: () => get().theme == 'light' ? ' text-[#000000] ' : ' text-[#ffffff] ',
+    textSecondColor: () => get().theme == 'light' ? ' text-[#222222] ' : ' text-[#bbbbbb] '
 }))

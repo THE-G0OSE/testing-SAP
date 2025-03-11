@@ -1,5 +1,5 @@
 import {motion} from 'motion/react'
-import { review } from '../store';
+import { review } from '../../store';
 
 interface props {
     reviews: review[];

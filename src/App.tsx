@@ -1,6 +1,7 @@
 import HomePage from "./components/home/HomePage"
+import ReviewPage from "./components/review/ReviewPage"
 import { Route, Routes } from "react-router"
-import { useDB } from "./components/store"
+import { useDB } from "./store"
 import { useEffect } from "react"
 
 const App = () => {
@@ -13,9 +14,17 @@ const App = () => {
 
   return (
 
-    <div>
+    <div className='w-screen h-screen overflow-x-hidden'>
 
-      {DB.reviews && <HomePage reviews={DB.reviews}/>}
+      <Routes>
+
+        <Route path='/' element={DB.reviews && <HomePage reviews={DB.reviews}/>} />
+
+        <Route path='/review'>
+          <Route path=':reviewId' element={<ReviewPage/>} />
+        </Route> 
+
+      </Routes>
 
     </div>
 
