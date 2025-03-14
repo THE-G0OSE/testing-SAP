@@ -39,7 +39,7 @@ const EditModal: React.FC<props> = ({review}) => {
             setError('username', {type: 'custom', message: 'username is alredy used'})
         } else {
             const date = new Date();
-            DB.changeReview(review!.id, {id: Number(DB.reviews![DB.reviews!.length - 1].id) + 1, username: data.username, categorie: data.category, rating: Number(data.rating), text: data.text, views: 0, date: `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}` })
+            DB.changeReview(Number(review!.id), {id: review!.id, username: data.username, categorie: data.category, rating: Number(data.rating), text: data.text, views: 0, date: `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}` })
             DB.fetchReviews()
             modal.setIsEditing(false)
         }
@@ -74,7 +74,7 @@ const EditModal: React.FC<props> = ({review}) => {
             <p className='h-10 text-red-500'>{errors.category && errors.category.message}</p>
         </div>
 
-        <div className='min-h-15'>
+        <div className='min-h-15 w-full'>
             <RatingChoice value={review ? review.rating : 0} register={register}/>
             <p className='h-10 text-red-500'>{errors.rating && errors.rating.message}</p>
         </div>

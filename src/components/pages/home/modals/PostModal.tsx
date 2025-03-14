@@ -2,6 +2,7 @@ import {motion} from 'motion/react'
 import { useDB, useModal, useTheme } from '../../../../store'
 import { SubmitHandler, useForm } from 'react-hook-form';
 import RatingChoice from './RatingChoice';
+import { useState } from 'react';
 
 const PostModal = () => {
 
@@ -16,7 +17,8 @@ const PostModal = () => {
         rating: string;
     }
 
-    const {register, handleSubmit, setError, formState: {errors, isSubmitting}} = useForm<form>()
+    const {register, handleSubmit, setError, formState: {errors}} = useForm<form>()
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
 
     const modalVar = {
         hide: {opacity: 0},
@@ -24,13 +26,15 @@ const PostModal = () => {
     }
 
     const submity: SubmitHandler<form> = (data) => {
+        setIsSubmitting(true)
+        setTimeout(() => setIsSubmitting(false), 300) 
         if(!data.rating){
             setError('rating', {type: 'custom', message: 'rating is required'})
         } else if (DB.reviews?.find((review) => review.username == data.username)) {
             setError('username', {type: 'custom', message: 'username is alredy used'})
         } else {
             const date = new Date();
-            DB.postReview({id: Number(DB.reviews![DB.reviews!.length - 1].id) + 1, username: data.username, categorie: data.category, rating: Number(data.rating), text: data.text, views: 0, date: `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}` })
+            DB.postReview({id: DB.reviews!.length > 0 ? String(Number(DB.reviews![DB.reviews!.length - 1].id) + 1) : '1', username: data.username, categorie: data.category, rating: Number(data.rating), text: data.text, views: 0, date: `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}` })
             modal.setIsShow(false)
         }
     }
@@ -64,7 +68,7 @@ const PostModal = () => {
             <p className='h-10 text-red-500'>{errors.category && errors.category.message}</p>
         </div>
 
-        <div className='min-h-15'>
+        <div className='min-h-15 w-full'>
             <RatingChoice register={register}/>
             <p className='h-10 text-red-500'>{errors.rating && errors.rating.message}</p>
         </div>
@@ -73,8 +77,8 @@ const PostModal = () => {
             <button type='button' onClick={() => modal.setIsShow(false)} className={'rounded-xl w-[45%] py-1' + theme.secondColor()}>
                 Back
             </button>
-            <button type='submit' className={'rounded-xl py-1 w-[45%]' + theme.accentColor()}>
-                {isSubmitting ? 'Loading...' : 'Submit'}
+            <button disabled={isSubmitting} type='submit' className={'rounded-xl py-1 w-[45%]' + theme.accentColor()}>
+                {isSubmitting ? 'Loading...' : 'Post'}
             </button>
         </div>
 

@@ -1,7 +1,7 @@
-import {motion} from 'motion/react'
+import {AnimatePresence, motion} from 'motion/react'
 import HomePage from "./components/pages/home/HomePage"
 import ReviewPage from "./components/pages/review/ReviewPage"
-import { Route, Routes } from "react-router"
+import { Route, Routes, useLocation } from "react-router"
 import { useDB, useTheme } from "./store"
 import { useEffect } from "react"
 import IndexLayout from "./components/layout/IndexLayout"
@@ -12,8 +12,13 @@ const App = () => {
 
   const theme = useTheme()
 
+  const location = useLocation()
+
+  const locationArr = location.pathname?.split('/') ?? [];
+
   useEffect(() => {
     DB.fetchReviews()
+    setInterval(() => DB.fetchReviews(), 5000)
   }, [])
 
   const containerVar ={
@@ -27,20 +32,21 @@ const App = () => {
       initial='hide' 
       animate='show'
     >
+    <IndexLayout>
+    <AnimatePresence mode='wait'>
+      <Routes location={location} key={locationArr[1]}>
 
-      <Routes>
+          <Route index element={DB.reviews && <HomePage reviews={DB.reviews}/>} />
 
-        <Route element={<IndexLayout/>}>
+          <Route path='review/:reviewId' element={DB.reviews && <ReviewPage />} />
 
-          <Route path='/' element={DB.reviews && <HomePage reviews={DB.reviews}/>} />
-
-          <Route path='/review'>
-            <Route path=':reviewId' element={<ReviewPage/>} />
-          </Route> 
-
-        </Route>
+          <Route path={'*'} element={<div className='flex justify-center items-center h-screen w-screen'>Page not found</div>}/>
 
       </Routes>
+    </AnimatePresence>
+    </IndexLayout>
+
+
 
     </motion.div>
 

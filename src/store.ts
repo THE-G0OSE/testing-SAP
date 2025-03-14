@@ -1,7 +1,7 @@
 import {create} from 'zustand'
 
 export type review = {
-    id: number;
+    id: string;
     username: string;
     text: string;
     rating: number;
@@ -43,6 +43,11 @@ interface IModal {
     setEditing: (review: review) => void;
 }
 
+interface IExit {
+    exitType: string;
+    setExitType: (type: string) => void;
+}
+
 const url = 'http://192.168.1.42:3000/reviews'
 
 export const useDB = create<IDB>((set, get) => ({
@@ -82,11 +87,11 @@ export const useDB = create<IDB>((set, get) => ({
         .then(res => {
             return res.json()
         })
-        .then(data => console.log(data)).then(() => get().fetchReviews())
+        .then(data => console.log(data))
+        get().fetchReviews()
     },
     getReviewById: (id) => {
-        const result = get().reviews!.find((review) => review.id == id);
-        console.log(id,result)
+        const result = get().reviews!.find((review) => review.id == String(id));
         if (result) {
             return result
         } else {
@@ -137,4 +142,9 @@ export const useModal = create<IModal>((set) => ({
     setIsEditing: (arg) => set({isEditing: arg}),
     setEditing: (review) => set({editingReview: review})
 
+}))
+
+export const useExitAnimation = create<IExit>((set) => ({
+    exitType: 'delete',
+    setExitType: (type) => set({exitType: type})
 }))

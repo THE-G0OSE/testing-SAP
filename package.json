@@ -9,7 +9,7 @@
     "start": "concurrently \"pnpm dev\" \"pnpm run server\"",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview --host"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.12",

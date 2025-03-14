@@ -19,7 +19,7 @@ const Header = () => {
 
   return (
 
-    <motion.div className={'w-screen h-25 lg:h-30 -mb-8 flex items-end jusitfy-between z-10 fixed pl-10' + theme.secondColor()}
+    <motion.div key='header div' className={'w-screen h-25 lg:h-30 -mb-8 flex items-end jusitfy-between z-10 fixed pl-10' + theme.secondColor()}
       variants={headerVar} 
     >
 

@@ -1,17 +1,20 @@
-import { Outlet } from "react-router"
 import Footer from "./Footer"
 import Header from "./header/Header"
 
-const IndexLayout = () => {
+interface props {
+  children: React.ReactNode;
+}
+
+const IndexLayout: React.FC<props> = ({children}) => {
 
   return (
 
     <>
-        <Header/>
+        <Header key='header'/>
 
-        <Outlet/>
+          {children}
 
-        <Footer/>
+        <Footer key='footer'/>
     </>
 
   )

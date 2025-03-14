@@ -13,7 +13,7 @@ const RatingChoice: React.FC<props> = ({register, value = 0}) => {
 
   return (
 
-    <motion.div className='flex '>
+    <motion.div className='flex w-full px-4 justify-around text-[2em]'>
 
       <label className='' onClick={() => setRating(1)}><input className='hidden' type="radio" name='rating' value='1' {...register('rating')}/>{rating > 0 ? <FaStar/> : <FaRegStar/>}</label> 
 
