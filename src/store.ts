@@ -10,6 +10,8 @@ export type review = {
     views: number; 
 } 
 
+type color = (blur? : boolean) => string;
+
 interface IDB {
     reviews: review[] | null;
     isPending: boolean;
@@ -24,15 +26,24 @@ interface IDB {
 interface ITheme {
     theme: 'light' | 'dark',
     changeTheme: () => void,
-    mainColor: () => string,
-    secondColor: () => string,
-    accentColor: () => string,
-    secondColorAccent: () => string,
-    textColor: () => string,
-    textSecondColor: () => string,
+    mainColor: color,
+    secondColor: color,
+    accentColor: color,
+    secondColorAccent: color,
+    textColor: color,
+    textSecondColor: color,
 }
 
-const url = 'http://localhost:3000/reviews'
+interface IModal {
+    isShow: boolean;
+    isEditing: boolean;
+    editingReview: review | null;
+    setIsShow: (arg: boolean) => void;
+    setIsEditing: (arg: boolean) => void;
+    setEditing: (review: review) => void;
+}
+
+const url = 'http://192.168.1.42:3000/reviews'
 
 export const useDB = create<IDB>((set, get) => ({
     reviews: [],
@@ -71,7 +82,7 @@ export const useDB = create<IDB>((set, get) => ({
         .then(res => {
             return res.json()
         })
-        .then(data => console.log(data))
+        .then(data => console.log(data)).then(() => get().fetchReviews())
     },
     getReviewById: (id) => {
         const result = get().reviews!.find((review) => review.id == id);
@@ -83,7 +94,7 @@ export const useDB = create<IDB>((set, get) => ({
         }
     },
     changeReview: (id, newReview) => {
-        fetch(`${url}${id}`,
+        fetch(`${url}/${id}`,
             {
                 method: "PATCH",
                 headers: {
@@ -96,7 +107,7 @@ export const useDB = create<IDB>((set, get) => ({
         }).then(data => console.log(data))
     },
     deleteReview: (id) => {
-        fetch(`${url}${id}`, {
+        fetch(`${url}/${id}`, {
             method: 'DELETE'
         })
         .then(res => {
@@ -109,10 +120,21 @@ export const useDB = create<IDB>((set, get) => ({
 export const useTheme = create<ITheme>((set, get) => ({
     theme: 'dark',
     changeTheme: () => set({theme: get().theme == 'light' ? 'dark' : 'light'}),
-    mainColor: () => get().theme == 'light' ? ' bg-[#ffffff] ' : ' bg-[#000000] ',
-    secondColor: () => get().theme == 'light' ? ' bg-[#aaaaaa] ' : ' bg-[#333333] ',
-    accentColor: () => get().theme == 'light' ? ' bg-[#999999] ' : ' bg-[#555555] ',
-    secondColorAccent: () => get().theme == 'light' ? ' bg-[#777777] ' : ' bg-[#777777] ',
-    textColor: () => get().theme == 'light' ? ' text-[#000000] ' : ' text-[#ffffff] ',
-    textSecondColor: () => get().theme == 'light' ? ' text-[#222222] ' : ' text-[#bbbbbb] '
+    mainColor:         () => get().theme == 'light' ? ' bg-cyan-200 ' : ' bg-gradient-to-br from-teal-950 to-cyan-900', 
+    secondColor:       (blur = false) => get().theme == 'light' ? (blur ? ' bg-cyan-400/20 ' : ' bg-cyan-400 ') : (blur ? ' bg-cyan-800/20 ' : ' bg-cyan-800 '),
+    accentColor:       (blur = false) => get().theme == 'light' ? (blur ? ' bg-cyan-600/20 ' : ' bg-cyan-600 ') : (blur ? ' bg-cyan-600/20 ' : ' bg-cyan-600 '),
+    secondColorAccent: (blur = false) => get().theme == 'light' ? (blur ? ' bg-cyan-500/20 ' : ' bg-cyan-500 ') : (blur ? ' bg-cyan-700/20 ' : ' bg-cyan-700 '),
+
+    textColor:         (blur = false) => get().theme == 'light' ? (blur ? ' text-cyan-600/20 ' : ' text-cyan-600 ') : (blur ? ' text-cyan-200/20 ' : ' text-cyan-200 '),
+    textSecondColor:   (blur = false) => get().theme == 'light' ? (blur ? ' text-cyan-400/20 ' : ' text-cyan-400 ') : (blur ? ' text-cyan-400/20 ' : ' text-cyan-400 '),
+}))
+
+export const useModal = create<IModal>((set) => ({
+    isShow: false,
+    isEditing: false,
+    editingReview: null,
+    setIsShow: (arg) => set({isShow: arg}),
+    setIsEditing: (arg) => set({isEditing: arg}),
+    setEditing: (review) => set({editingReview: review})
+
 }))

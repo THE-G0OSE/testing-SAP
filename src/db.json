@@ -1,45 +1,40 @@
 {
-    "reviews": [
-       {
-        "id": 0,
-        "username": "Anton228",
-        "text": "some long text about Anton's hard life",
-        "rating": 2,
-        "categorie": "Films",
-        "date": "10.03.2025",
-        "views": 0
-       },{
-        "id": 1,
-        "username": "Miha1337",
-        "text": "some long text about Miha's hard life",
-        "rating": 1,
-        "categorie": "Cars",
-        "date": "10.03.2025",
-        "views": 0
-       },{
-        "id": 2,
-        "username": "Masha2009",
-        "text": "some long text about Masha's simple life",
-        "rating": 4,
-        "categorie": "School",
-        "date": "10.03.2025",
-        "views": 0
-       },{
-        "id": 3,
-        "username": "Pidor2006",
-        "text": "some long text about someone's hard life",
-        "rating": 3,
-        "categorie": "Work",
-        "date": "10.03.2025",
-        "views": 0
-       },{
-        "id": 4,
-        "username": "Opezdol",
-        "text": "some long text about someone's simple life",
-        "rating": 5,
-        "categorie": "Computers",
-        "date": "10.03.2025",
-        "views": 0
-       }
-    ]
+  "reviews": [
+    {
+      "id": "41112",
+      "username": "The goose",
+      "categorie": "time",
+      "rating": 4,
+      "text": "good day tomorrow\n",
+      "views": 0,
+      "date": "14.3.2025"
+    },
+    {
+      "id": "41113",
+      "username": "Mihail",
+      "categorie": "cars",
+      "rating": 1,
+      "text": "Lada motors is the worst ",
+      "views": 0,
+      "date": "14.2.2025"
+    },
+    {
+      "id": "41114",
+      "username": "goose",
+      "categorie": "all in one",
+      "rating": 3,
+      "text": "some long text about some product from some company and about a someone's hard life with a lot of important information and this is really helpfull review of life asdf asdf asdf asdf asdf asd fasdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf ",
+      "views": 0,
+      "date": "14.2.2025"
+    },
+    {
+      "id": 41115,
+      "username": "Alex",
+      "categorie": "cars and tuning",
+      "rating": 4,
+      "text": "some information about cars and tuning",
+      "views": 0,
+      "date": "14.3.2025"
+    }
+  ]
 }
