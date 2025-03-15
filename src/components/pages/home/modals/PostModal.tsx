@@ -21,8 +21,13 @@ const PostModal = () => {
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
 
     const modalVar = {
-        hide: {opacity: 0},
-        show: {opacity: 1, transition : { duration: .6, ease: 'easeOut', delayChildren: .6}}
+        hide: {opacity: 0, transition: { duration: .4, ease: 'easeIn'}},
+        show: {opacity: 1, transition: { duration: .6, ease: 'easeOut', delayChildren: .6}}
+    }
+
+    const formVar = {
+        hide: {opacity: 0, y: 200, transition: { duration: .4, type: 'spring', stiffness: 70}},
+        show: {opacity: 1, y: 0  , transition: { duration: .6, type: 'spring', stiffness: 70}}
     }
 
     const submity: SubmitHandler<form> = (data) => {
@@ -48,7 +53,9 @@ const PostModal = () => {
       exit='hide'
     >
 
-      <motion.form onSubmit={handleSubmit(submity)} className={'rounded-xl w-[90vw] max-w-140 flex flex-col py-6 px-7 text-[1.4em]' + theme.secondColorAccent() + theme.textColor()}>
+      <motion.form onSubmit={handleSubmit(submity)} className={'rounded-xl w-[90vw] max-w-140 flex flex-col py-6 px-7 text-[1.4em]' + theme.secondColorAccent() + theme.textColor()}
+        variants={formVar} 
+      >
 
         <div>
             <label className='block' htmlFor="username">Username: </label>

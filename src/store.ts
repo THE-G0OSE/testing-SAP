@@ -45,6 +45,8 @@ interface IModal {
 
 interface IExit {
     exitType: string;
+    choosenReviewId: null | string;
+    setChoosen: (id: string) => void;
     setExitType: (type: string) => void;
 }
 
@@ -112,6 +114,7 @@ export const useDB = create<IDB>((set, get) => ({
         }).then(data => console.log(data))
     },
     deleteReview: (id) => {
+        set({reviews: get().reviews!.filter((review) => review.id != String(id))})
         fetch(`${url}/${id}`, {
             method: 'DELETE'
         })
@@ -145,6 +148,11 @@ export const useModal = create<IModal>((set) => ({
 }))
 
 export const useExitAnimation = create<IExit>((set) => ({
-    exitType: 'delete',
-    setExitType: (type) => set({exitType: type})
+    exitType: 'leave',
+    choosenReviewId: null,
+    setChoosen: (id) => set({choosenReviewId: id}),
+    setExitType: (type) => {
+        set({exitType: type})
+        setTimeout(() => set({exitType: 'leave'}), 1000)
+    }
 }))

@@ -14,23 +14,22 @@ const Review: React.FC<props> = ({review}) => {
   const theme = useTheme()
   const modal = useModal()
   const DB = useDB()
-  const {exitType, setExitType} = useExitAnimation()
+  const {exitType, setExitType, choosenReviewId, setChoosen} = useExitAnimation()
   const nav = useNavigate()
 
   const reviewRef = useRef<HTMLDivElement | null>(null)
 
   const isInView = useInView(reviewRef, {once: true})
   const [isShow, setIsShow] = useState<boolean>(false)
-  const [isChoosen, setIsChoosen] = useState<boolean>(false)
 
   useEffect(() => setIsShow(isInView), [isInView])
 
   const reviewVar = { 
-    hide: {y: 50, opacity: 0},
-    show: {y: 0, opacity: 1, transition: {duration: 2, type: 'spring', stiffness: 70, delay: .3}},
-    delete: {scale: 0, rotateZ: 90, transition: {duration: .5, ease: 'easeIn'}},
-    leave: {y: 50, opacity: 0, transition: {duration: .8, ease: 'easeInOut'}},
-    choosen: {y: -700, rotateY: 180, transition: {duration: 1.5, ease: 'easeInOut'}}
+    hide:    {y: 50, opacity: 0},
+    show:    {y: 0, opacity: 1,                  transition: {duration: 2,   type: 'spring', stiffness: 70, delay: .3}},
+    delete:  {scale: 0,                          transition: {duration: .5,  ease: 'easeIn'}},
+    leave:   {y: 50, opacity: 0,                 transition: {duration: .8,  ease: 'easeInOut'}},
+    choosen: {y: -1000, opacity: 0, rotateY: 90, transition: {duration: 1.5, ease: 'easeInOut'}}
   }
 
   return (
@@ -38,14 +37,14 @@ const Review: React.FC<props> = ({review}) => {
     <motion.div ref={reviewRef} className={'w-80 lg:w-120 h-50 lg:h-75 rounded-2xl flex flex-col justify-between p-4' + theme.secondColorAccent()}
       onClick={() => {
         setExitType('leave')
-        setIsChoosen(true)
+        setChoosen(review.id)
         DB.changeReview(Number(review.id), {...review, views: review.views + 1})
         nav(`/review/${review.id}`)
       }} 
       variants={reviewVar}
       initial='hide'
       animate={isShow ? 'show' : 'hide'}
-      exit={isChoosen ? 'choosen' : exitType}
+      exit={choosenReviewId == review.id ? 'choosen' : exitType}
       whileHover={{
         scale: 1.1,
         boxShadow: 'black 10px 10px 40px',
@@ -53,7 +52,7 @@ const Review: React.FC<props> = ({review}) => {
       }}
     >
       <motion.div className='flex justify-between w-full'>
-        <p className={'text-[1.5em]'}>{review.username}</p>
+        <p className={'text-[1.5em]'}>{review.username.length > 14 ? review.username.slice(0,14) + '...' : review.username}</p>
         <p className={'text-[1.3em]' + theme.textSecondColor()}>{review.categorie}</p>
         <section className='flex items-center gap-6'>
 

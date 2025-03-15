@@ -23,6 +23,8 @@ const Rating: React.FC<props> = ({rating}) => {
 
     <motion.div className='flex items-center'
         variants={containerVar} 
+        initial='hide'
+        animate='show'
     >
       <motion.div className={'' + theme.textColor()} variants={starVar}>{rating > 0 ? <FaStar/> : <FaRegStar/>}</motion.div>
       <motion.div className={'' + theme.textColor()} variants={starVar}>{rating > 1 ? <FaStar/> : <FaRegStar/>}</motion.div>
