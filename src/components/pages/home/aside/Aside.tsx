@@ -2,6 +2,8 @@ import {motion} from 'motion/react'
 import { useTheme } from '../../../../store'
 import { FaAngleRight } from 'react-icons/fa'
 import { useState } from 'react'
+import Sorting from './ui/Sorting'
+import Filter from './ui/Filter'
 
 const Aside = () => {
 
@@ -28,7 +30,11 @@ const Aside = () => {
       animate={isShow ? 'show' : 'hide'}
     >
 
-      <div className={'w-[90%] h-full blur-back ' + theme.accentColor(true)}>
+      <div className={'w-[90%] h-full blur-back flex flex-col gap-4 pl-[15%] pt-30 text-[1.3em] ' + theme.accentColor(true) + theme.textColor()}>
+
+        <Sorting/>
+
+        <Filter/>
 
       </div>
 

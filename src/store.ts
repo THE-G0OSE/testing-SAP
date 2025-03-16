@@ -12,6 +12,16 @@ export type review = {
 
 type color = (blur? : boolean) => string;
 
+type filter = {
+    type: 'interval' | 'value' | 'none',
+    value: string | number | number[] | null
+}
+
+enum filterNamesEnum {
+    rating = 'rating',
+    category = 'category'
+}
+
 interface IDB {
     reviews: review[] | null;
     isPending: boolean;
@@ -50,13 +60,32 @@ interface IExit {
     setExitType: (type: string) => void;
 }
 
+interface ISort {
+    choosenProperty: string,
+    choosenType:     string,
+    sorterdReviews:  review[],
+
+    setProperty:      (property: string)  => void,
+    setType:          (type: string)      => void,
+    setSortedReviews: (reviews: review[]) => void,
+
+    sortReviews: (reviews: review[]) => review[]
+}
+
+interface IFilter {
+    filters: Record<filterNamesEnum, filter>;
+    setFilter: (name: string, newValue: filter) => void;
+    filteredReviews: review[];
+    setFilteredReviews: (reviews: review[]) => void
+}
+
 const url = 'http://192.168.1.42:3000/reviews'
 
 export const useDB = create<IDB>((set, get) => ({
     reviews: [],
     isPending: true,
     error: null,
-    fetchReviews: () => {
+    fetchReviews:  () => {
         setTimeout(() => 
         fetch(url).then((res) => {
             if (!res.ok) {
@@ -68,8 +97,10 @@ export const useDB = create<IDB>((set, get) => ({
             set({
                 isPending: false,
                 error: null,
-                reviews: data
             })
+            if (data != get().reviews){
+                set({reviews: data})
+            }
         })
         .catch(err => {
             set({
@@ -78,7 +109,7 @@ export const useDB = create<IDB>((set, get) => ({
             })
         }), 1000)
     },
-    postReview: (newReview) => {
+    postReview:    (newReview) => {
         fetch(url, {
             method: 'POST',
             headers: {
@@ -89,7 +120,6 @@ export const useDB = create<IDB>((set, get) => ({
         .then(res => {
             return res.json()
         })
-        .then(data => console.log(data))
         get().fetchReviews()
     },
     getReviewById: (id) => {
@@ -100,7 +130,7 @@ export const useDB = create<IDB>((set, get) => ({
             return null
         }
     },
-    changeReview: (id, newReview) => {
+    changeReview:  (id, newReview) => {
         fetch(`${url}/${id}`,
             {
                 method: "PATCH",
@@ -111,9 +141,9 @@ export const useDB = create<IDB>((set, get) => ({
             }
         ).then(res => {
             return res.json()
-        }).then(data => console.log(data))
+        })
     },
-    deleteReview: (id) => {
+    deleteReview:  (id) => {
         set({reviews: get().reviews!.filter((review) => review.id != String(id))})
         fetch(`${url}/${id}`, {
             method: 'DELETE'
@@ -121,7 +151,6 @@ export const useDB = create<IDB>((set, get) => ({
         .then(res => {
             return res.json()
         })
-        .then(data => console.log(data))
     }
 }))
 
@@ -141,9 +170,9 @@ export const useModal = create<IModal>((set) => ({
     isShow: false,
     isEditing: false,
     editingReview: null,
-    setIsShow: (arg) => set({isShow: arg}),
-    setIsEditing: (arg) => set({isEditing: arg}),
-    setEditing: (review) => set({editingReview: review})
+    setIsShow:    (arg)    => set({isShow: arg}),
+    setIsEditing: (arg)    => set({isEditing: arg}),
+    setEditing:   (review) => set({editingReview: review})
 
 }))
 
@@ -154,5 +183,85 @@ export const useExitAnimation = create<IExit>((set) => ({
     setExitType: (type) => {
         set({exitType: type})
         setTimeout(() => set({exitType: 'leave'}), 1000)
+    }
+}))
+
+export const useSort = create<ISort>((set, get) => ({
+    choosenProperty: 'date',
+    choosenType:     'less to more',
+    sorterdReviews:  [],
+    setProperty:      (property) => set({choosenProperty: property}),
+    setType:          (type)     => set({choosenType: type}),
+    setSortedReviews: (reviews)  => set({sorterdReviews: reviews}),
+    sortReviews: (reviews) => {
+        const property: string = get().choosenProperty
+        const type: string = get().choosenType
+        const sorted = reviews.sort((a, b) => {
+            let itemA : number = 0
+            let itemB : number = 0
+            switch (property){
+                case 'views':
+                    itemA = Number(a.views)
+                    itemB = Number(b.views)
+                    break;
+                case 'rating':
+                    itemA = Number(a.rating)
+                    itemB = Number(b.rating)
+                    break;
+                case 'date': 
+                    itemA = Number(a.id)
+                    itemB = Number(b.id)
+                    break;
+            }
+            return( (type == 'less to more') ? (itemA - itemB) : (itemB - itemA) )
+        })
+        return sorted
+    } 
+})
+)
+
+export const useFilter = create<IFilter>((set, get) => ({
+    filters: {
+        [filterNamesEnum.rating]: {
+            type: 'none',
+            value: null
+        },
+        [filterNamesEnum.category]: {
+            type: 'none',
+            value: null
+        }
+    },
+    setFilter: (name, newValue) => {
+        switch(name){
+            case 'rating':
+                set({filters: {...get().filters, rating: newValue}})
+                break;
+            case 'category':
+                set({filters: {...get().filters, category: newValue}})
+                break;
+        }
+    },
+    filteredReviews: [],
+    setFilteredReviews: (reviews) => {
+        const result = reviews.filter((review) => {
+            let isValid: boolean = true
+            const filters = get().filters
+
+            if(filters.rating.value && isValid){switch(filters.rating.type){
+                                            case 'interval':
+                                                if (Array.isArray(filters.rating.value))
+                                                isValid = (review.rating >= filters.rating.value[0]) && (review.rating <= filters.rating.value[1])
+                                                break;
+                                            case 'value':
+                                                isValid = review.rating == filters.rating.value
+                                                break;
+                                          }}
+            if(filters.category.value && isValid && typeof(filters.category.value) === 'string'){
+                isValid = review.categorie.includes(filters.category.value)
+            }
+            return isValid
+            }
+        )
+    set({filteredReviews: result})
     }
 }))

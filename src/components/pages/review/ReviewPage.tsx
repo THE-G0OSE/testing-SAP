@@ -15,9 +15,10 @@ const PostPage = () => {
   const [review, setReview] = useState<review | null>(DB.getReviewById(Number(reviewId)))
   const [tooltip, setTooltip] = useState<boolean>(false)
 
-  useEffect(() => {setTimeout(() => {
+  useEffect(() => {
+    DB.fetchReviews()
+    setTimeout(() => {
     if (!review) {
-      DB.fetchReviews()
       console.log('fetching data')
       const result = DB.getReviewById(Number(reviewId))
       console.log('searching in ', DB.reviews)
@@ -53,10 +54,10 @@ const PostPage = () => {
         exit='exit'
       >
 
-        <div className="w-full flex justify-between items-center pl-3">
+        <div className="w-full flex justify-between items-center lg:pl-3 ">
 
           <span className='font-bold text-[1.5em] w-[33%] flex justify-start relative' onClick={() => setTooltip(!tooltip)}>
-            {review.username.length > 10 ? review.username.slice(0,10) + '...' : review.username}
+            {review.username.length > 8 ? review.username.slice(0,8) + '...' : review.username}
             <AnimatePresence>
               { tooltip && <motion.div className={'blur-back rounded-xl p-2 absolute top-[110%] ' + theme.secondColor(true)}
                 variants={tooltipVar}

@@ -16,7 +16,7 @@ const HomePage: React.FC<props> = ({reviews}) => {
 
   return (
     <>
-      <motion.div key='home' className={'min-h-[80vh] flex justify-center items-center content-start flex-wrap gap-5 lg:gap-8 mb-3 pt-20 md:pt-30 pb-10 w-screen overflow-x-hidden' + theme.textColor()}
+      <motion.div key='home' className={'min-h-[80vh] flex justify-center items-center content-start flex-wrap gap-5 lg:gap-8 mb-3 pt-20 md:pt-30 pb-10' + theme.textColor()}
       >
         <AnimatePresence propagate>
         {reviews.map(review => <Review key={review.id} review={review}/>)}

@@ -17,8 +17,8 @@ const Button: React.FC<props> = ({children, className='', onClick}) => {
 
     <motion.button onClick={onClick} className={className + ' h-16 aspect-square lg:h-19 flex justify-center items-center '}
         variants={buttonVar} 
-        whileHover={{scale: 1.1, rotateZ: 10,  transition: {duration: .2, type: 'spring', stiffness: 100}}}
-        whileTap={{scale: 0.95, rotateZ: -5, transition: {duration: .2, type: 'sping', stiffness: 100}}}
+        whileHover={{scale: 1.1, rotateZ: 10,  transition: {duration: .2, type: 'spring', stiffness: 200}}}
+        whileTap={{scale: 0.95, rotateZ: -5, transition: {duration: .2, type: 'sping', stiffness: 200}}}
     >
 
         {children}

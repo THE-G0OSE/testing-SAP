@@ -1,48 +1,12 @@
 {
   "reviews": [
     {
-      "id": "12",
-      "username": "aweaq",
-      "categorie": "qwefasdfqwe",
-      "rating": 3,
-      "text": "asdfweqrsdfqwer",
-      "views": 5,
-      "date": "14.3.2025"
-    },
-    {
-      "id": "13",
-      "username": "Bsiebdux",
-      "categorie": "Dhdjxidh",
-      "rating": 2,
-      "text": "Hsixbshxu",
-      "views": 2,
-      "date": "14.3.2025"
-    },
-    {
-      "id": "14",
-      "username": " asdasdfasdf qwerqwerasdf",
-      "categorie": "asdfasdf",
-      "rating": 5,
-      "text": "asdfqas dhfa sdlkjfhas dfkhalsdfas dflasd fasdlfasd fasld f asdfqas dhfa sdlkjfhas dfkhalsdfas dflasd fasdlfasd fasld f asdfqas dhfa sdlkjfhas dfkhalsdfas dflasd fasdlfasd fasld f asdfqas dhfa sdlkjfhas dfkhalsdfas dflasd fasdlfasd fasld f asdfqas dhfa sdlkjfhas dfkhalsdfas dflasd fasdlfasd fasld f asdfqas dhfa sdlkjfhas dfkhalsdfas dflasd fasdlfasd fasld f asdfqas dhfa sdlkjfhas dfkhalsdfas dflasd fasdlfasd fasld f asdfqas dhfa sdlkjfhas dfkhalsdfas dflasd fasdlfasd fasld f asdfqas dhfa sdlkjfhas dfkhalsdfas dflasd fasdlfasd fasld f asdfqas dhfa sdlkjfhas dfkhalsdfas dflasd fasdlfasd fasld f asdfqas dhfa sdlkjfhas dfkhalsdfas dflasd fasdlfasd fasld f asdfqas dhfa sdlkjfhas dfkhalsdfas dflasd fasdlfasd fasld f asdfqas dhfa sdlkjfhas dfkhalsdfas dflasd fasdlfasd fasld f asdfqas dhfa sdlkjfhas dfkhalsdfas dflasd fasdlfasd fasld f asdfqas dhfa sdlkjfhas dfkhalsdfas dflasd fasdlfasd fasld f asdfqas dhfa sdlkjfhas dfkhalsdfas dflasd fasdlfasd fasld f ",
-      "views": 15,
-      "date": "15.3.2025"
-    },
-    {
-      "id": "15",
-      "username": "as;fdljk",
-      "categorie": ";ljasfkd",
-      "rating": 3,
-      "text": "a;sfdljk",
-      "views": 0,
-      "date": "15.3.2025"
-    },
-    {
       "id": "16",
       "username": "asdfasdf",
       "categorie": "qwerasdfqwr",
       "rating": 3,
       "text": "qwersdfqwefrasdf",
-      "views": 0,
+      "views": 6,
       "date": "15.3.2025"
     },
     {
@@ -51,16 +15,7 @@
       "categorie": "sdfqawerfqwdef",
       "rating": 4,
       "text": "asdfqwerasdf",
-      "views": 0,
-      "date": "15.3.2025"
-    },
-    {
-      "id": "18",
-      "username": "qweasdfq",
-      "categorie": "asdfqwerqa",
-      "rating": 4,
-      "text": "wefasdfqwer",
-      "views": 0,
+      "views": 2,
       "date": "15.3.2025"
     },
     {
@@ -69,17 +24,17 @@
       "categorie": "qwefasdfqwef",
       "rating": 1,
       "text": "fqwefasdf",
-      "views": 0,
+      "views": 3,
       "date": "15.3.2025"
     },
     {
       "id": "20",
-      "username": "qwefasdfqwef",
-      "categorie": "wesdfqwef",
-      "rating": 4,
-      "text": "asdfqwefasdfq",
+      "username": "фывафы",
+      "categorie": "вафывафыва",
+      "rating": 2,
+      "text": "фывафывафы",
       "views": 1,
-      "date": "15.3.2025"
+      "date": "16.3.2025"
     },
     {
       "id": "21",
@@ -87,7 +42,7 @@
       "categorie": "fqwefasdfqwe",
       "rating": 5,
       "text": "frsdfqwefasd",
-      "views": 0,
+      "views": 3,
       "date": "15.3.2025"
     },
     {
@@ -96,7 +51,7 @@
       "categorie": "asdfqwefsf",
       "rating": 4,
       "text": "efasdfqwef",
-      "views": 0,
+      "views": 3,
       "date": "15.3.2025"
     },
     {
@@ -105,17 +60,9 @@
       "categorie": "asdfqwef",
       "rating": 3,
       "text": "qwefasdfqwef",
-      "views": 0,
-      "date": "15.3.2025"
-    },
-    {
-      "id": "24",
-      "username": "qwefasdfq",
-      "categorie": "asqdfqwefasdf",
-      "rating": 1,
-      "text": "wefasdfqwef",
-      "views": 0,
+      "views": 3,
       "date": "15.3.2025"
     }
+    
   ]
 }
