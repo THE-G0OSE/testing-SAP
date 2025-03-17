@@ -19,13 +19,11 @@ const App = () => {
 
   useEffect(() => {setTimeout(() => {
     DB.fetchReviews()
-    console.log('raw data', DB.reviews)
     setInterval(() => {DB.fetchReviews()}, 5000)}, 1000)
     
   }, [])
 
   useEffect(() => {
-    console.log('data filtering', DB.reviews)
     sort.setSortedReviews(sort.sortReviews(DB.reviews!))
   }, [DB.reviews])
 
