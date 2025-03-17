@@ -23,6 +23,10 @@ const FilterOption: React.FC<props> = ({name, setFilter, filter}) => {
     active:   {scale: 1.3, transition: {duration: .4, ease: 'easeInOut'}}
   }
 
+  const filterinput = () => {
+    setFilter({...filter, value: [(input1.current!.value === '') ? 0 : Number(input1.current!.value), Number(input2.current!.value == '' ? 5 : input2.current!.value)]})
+  }
+
   return (
 
     <motion.div className='flex-col flex gap-4 pl-4'>
@@ -31,13 +35,13 @@ const FilterOption: React.FC<props> = ({name, setFilter, filter}) => {
 
         {name == 'rating' && <div className='flex justify-around'>
 
-          <motion.span onClick={() => {setType('value'); setFilter({...filter, type: 'value'})}}
+          <motion.span onClick={() => {setType('value'); setFilter({...filter, type: 'value', value: null})}}
             variants={typeVar} 
             initial='inactive'
             animate={type == 'value' ? 'active' : 'inactive'}
           >value</motion.span> 
 
-          <motion.span onClick={() => {setType('interval'); setFilter({...filter, type: 'interval'})}}
+          <motion.span onClick={() => {setType('interval'); setFilter({...filter, type: 'interval', value: null})}}
             variants={typeVar} 
             initial='inactive'
             animate={type == 'interval' ? 'active' : 'inactive'}
@@ -51,10 +55,10 @@ const FilterOption: React.FC<props> = ({name, setFilter, filter}) => {
           {type == 'value' && <>
             <input ref={typeInputRef} onInput={() => setFilter({...filter, value: typeInputRef.current!.value})} className={'rounded-lg px-3 py-1' + theme.accentColor()} type="text" />
           </>}
-          {type == 'interval' && <>
-            <input ref={input1} onInput={() => setFilter({...filter, value: [Number(input1.current!.value), Number(input2.current!.value)]})} type="number" className={"rounded-lg px-3 py-1" + theme.accentColor()} />
-            <input ref={input2} onInput={() => setFilter({...filter, value: [Number(input1.current!.value), Number(input2.current!.value)]})} type="number" className={"rounded-lg px-3 py-1" + theme.accentColor()} />
-          </>}
+          {type == 'interval' && <div className='flex justify-around'>
+            from: <input ref={input1} onInput={filterinput} type="text" className={"rounded-lg px-3 py-1 w-[20%] outline-none" + theme.accentColor()} />
+            to:   <input ref={input2} onInput={filterinput} type="text" className={"rounded-lg px-3 py-1 w-[20%] outline-none" + theme.accentColor()} />
+          </div>}
 
         </div>
 

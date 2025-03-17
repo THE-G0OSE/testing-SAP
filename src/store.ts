@@ -12,7 +12,7 @@ export type review = {
 
 type color = (blur? : boolean) => string;
 
-type filter = {
+export type filter = {
     type: 'interval' | 'value' | 'none',
     value: string | number | number[] | null
 }
@@ -76,10 +76,11 @@ interface IFilter {
     filters: Record<filterNamesEnum, filter>;
     setFilter: (name: string, newValue: filter) => void;
     filteredReviews: review[];
+    filterReviews: (reviews: review[]) => review[]
     setFilteredReviews: (reviews: review[]) => void
 }
 
-const url = 'http://192.168.1.42:3000/reviews'
+const url = 'http://localhost:3000/reviews'
 
 export const useDB = create<IDB>((set, get) => ({
     reviews: [],
@@ -100,6 +101,7 @@ export const useDB = create<IDB>((set, get) => ({
             })
             if (data != get().reviews){
                 set({reviews: data})
+                console.log('raw data accepted')
             }
         })
         .catch(err => {
@@ -120,6 +122,9 @@ export const useDB = create<IDB>((set, get) => ({
         .then(res => {
             return res.json()
         })
+        let newReviews = get().reviews
+        newReviews!.push(newReview)
+        set({reviews: newReviews})
         get().fetchReviews()
     },
     getReviewById: (id) => {
@@ -242,7 +247,7 @@ export const useFilter = create<IFilter>((set, get) => ({
         }
     },
     filteredReviews: [],
-    setFilteredReviews: (reviews) => {
+    filterReviews: (reviews) => {
         const result = reviews.filter((review) => {
             let isValid: boolean = true
             const filters = get().filters
@@ -262,6 +267,8 @@ export const useFilter = create<IFilter>((set, get) => ({
             return isValid
             }
         )
-    set({filteredReviews: result})
-    }
+    return result
+    },
+    setFilteredReviews: (reviews) => set({filteredReviews: reviews})
+
 }))

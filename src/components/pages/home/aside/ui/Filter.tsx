@@ -13,7 +13,7 @@ const Filter = () => {
 
   return (
 
-    <motion.div className=''
+    <motion.div className='flex flex-col gap-8'
 
     >
 
@@ -22,7 +22,7 @@ const Filter = () => {
         <FilterOption name='rating' setFilter={setRatingFilter} filter={ratingFilter}/>
         <FilterOption name='category' setFilter={setCategoryFilter} filter={categoryFilter}/>
 
-        <button className={'px-3 py-1' + theme.accentColor()} onClick={() => {
+        <button className={'px-3 py-1 max-w-50' + theme.accentColor()} onClick={() => {
           if(ratingFilter){filter.setFilter('rating', ratingFilter)}
           if(categoryFilter){filter.setFilter('category', categoryFilter)}
           }}>Apply</button>

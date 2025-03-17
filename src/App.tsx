@@ -17,15 +17,22 @@ const App = () => {
 
   const locationArr = location.pathname?.split('/') ?? [];
 
-  useEffect(() => {
+  useEffect(() => {setTimeout(() => {
     DB.fetchReviews()
-    setInterval(() => {DB.fetchReviews()}, 5000);
+    console.log('raw data', DB.reviews)
+    setInterval(() => {DB.fetchReviews()}, 5000)}, 1000)
+    
   }, [])
 
   useEffect(() => {
+    console.log('data filtering', DB.reviews)
     sort.setSortedReviews(sort.sortReviews(DB.reviews!))
-    filter.setFilteredReviews(sort.sorterdReviews)
   }, [DB.reviews])
+
+  useEffect(() => {
+    filter.setFilteredReviews(filter.filterReviews(sort.sorterdReviews))
+  }, [sort.sorterdReviews, filter.filters])
+
 
   const containerVar ={
     show: {transition: {staggerChildren: .3}}
