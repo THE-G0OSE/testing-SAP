@@ -101,7 +101,6 @@ export const useDB = create<IDB>((set, get) => ({
             })
             if (data != get().reviews){
                 set({reviews: data})
-                console.log('raw data accepted')
             }
         })
         .catch(err => {
@@ -162,13 +161,13 @@ export const useDB = create<IDB>((set, get) => ({
 export const useTheme = create<ITheme>((set, get) => ({
     theme: 'dark',
     changeTheme: () => set({theme: get().theme == 'light' ? 'dark' : 'light'}),
-    mainColor:         () => get().theme == 'light' ? ' bg-cyan-200 ' : ' bg-gradient-to-br from-teal-950 to-cyan-900', 
+    mainColor:         () => {console.log(get().theme, get().theme == 'light'); return ((get().theme == 'light') ? ' bg-linear-to-br from-teal-500 to-cyan-500 ' : ' bg-linear-to-br from-teal-950 to-cyan-900')},
     secondColor:       (blur = false) => get().theme == 'light' ? (blur ? ' bg-cyan-400/20 ' : ' bg-cyan-400 ') : (blur ? ' bg-cyan-800/20 ' : ' bg-cyan-800 '),
-    accentColor:       (blur = false) => get().theme == 'light' ? (blur ? ' bg-cyan-600/20 ' : ' bg-cyan-600 ') : (blur ? ' bg-cyan-600/20 ' : ' bg-cyan-600 '),
-    secondColorAccent: (blur = false) => get().theme == 'light' ? (blur ? ' bg-cyan-500/20 ' : ' bg-cyan-500 ') : (blur ? ' bg-cyan-700/20 ' : ' bg-cyan-700 '),
+    accentColor:       (blur = false) => get().theme == 'light' ? (blur ? ' bg-cyan-500/20 ' : ' bg-cyan-500 ') : (blur ? ' bg-cyan-600/20 ' : ' bg-cyan-600 '),
+    secondColorAccent: (blur = false) => get().theme == 'light' ? (blur ? ' bg-cyan-400/20 ' : ' bg-cyan-400 ') : (blur ? ' bg-cyan-700/20 ' : ' bg-cyan-700 '),
 
-    textColor:         (blur = false) => get().theme == 'light' ? (blur ? ' text-cyan-600/20 ' : ' text-cyan-600 ') : (blur ? ' text-cyan-200/20 ' : ' text-cyan-200 '),
-    textSecondColor:   (blur = false) => get().theme == 'light' ? (blur ? ' text-cyan-400/20 ' : ' text-cyan-400 ') : (blur ? ' text-cyan-400/20 ' : ' text-cyan-400 '),
+    textColor:         (blur = false) => get().theme == 'light' ? (blur ? ' text-cyan-100/20 ' : ' text-cyan-100 ') : (blur ? ' text-cyan-200/20 ' : ' text-cyan-200 '),
+    textSecondColor:   (blur = false) => get().theme == 'light' ? (blur ? ' text-cyan-200/20 ' : ' text-cyan-200 ') : (blur ? ' text-cyan-400/20 ' : ' text-cyan-400 '),
 }))
 
 export const useModal = create<IModal>((set) => ({

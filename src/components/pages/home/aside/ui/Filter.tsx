@@ -22,11 +22,13 @@ const Filter = () => {
         <FilterOption name='rating' setFilter={setRatingFilter} filter={ratingFilter}/>
         <FilterOption name='category' setFilter={setCategoryFilter} filter={categoryFilter}/>
 
-        <button className={'px-3 py-1 max-w-50' + theme.accentColor()} onClick={() => {
+        <div className='flex justify-end pr-10'>
+
+        <button className={'px-4 py-2 max-w-50 rounded-lg ' + theme.accentColor()} onClick={() => {
           if(ratingFilter){filter.setFilter('rating', ratingFilter)}
           if(categoryFilter){filter.setFilter('category', categoryFilter)}
           }}>Apply</button>
-
+        </div>
     </motion.div>
 
   )
